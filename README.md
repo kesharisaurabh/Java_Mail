@@ -1,2 +1,2 @@
 # Java_Mail
-EmailProgramFromGoogle
+EmailProgram
