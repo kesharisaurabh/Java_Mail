@@ -1,0 +1,64 @@
+package pkg;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Folder;
+import javax.mail.Message;
+import javax.mail.NoSuchProviderException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Store;
+
+
+
+public class deleteMail
+{
+	public static void main(String[] args) throws Exception 
+	{
+		String userName="kesaharisaurabh@gmail.com";
+		String password= "xxx";
+		
+		Properties properties=new Properties();
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		
+		Session session=Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				// TODO Auto-generated method stub
+				return new PasswordAuthentication(userName, password);
+			}
+		});
+		
+		Store store=session.getStore("pop3s");
+		store.connect("pop.gmail.com", userName, password);
+		
+		Folder folder=store.getFolder("INBOX");
+		folder.open(Folder.READ_ONLY);
+		
+		Message msg1[]=folder.getMessages();
+		
+		for(int i=0;i<msg1.length;i++) {
+			Message msg=msg1[i];
+			System.out.println("Email Number "+(i+1));
+			System.out.println("Email Subject"+msg.getSubject());
+			System.out.println("From "+msg.getFrom()[0]);
+			System.out.println("Text "+msg.getContent().toString());
+			System.out.println(msg.getSentDate());
+			System.out.println();	
+		}		
+		
+		System.out.println("Enter Email no which u want to Delete ");
+		String emailno=new BufferedReader(new InputStreamReader(System.in)).readLine();
+	
+		msg1[Integer.parseInt(emailno)].setFlag(javax.mail.Flags.Flag.DELETED,true);
+		
+		
+	}
+
+}
