@@ -24,7 +24,7 @@ public class java_Mail_Box_1
 		properties.put("mail.smtp.port"	, "587");
 		
 		String Acc="saurabh4321keshari@gmail.com";
-		String psw="Qinst@lksk";
+		String psw="xxxxxx";
 		
 		Session session=Session.getDefaultInstance(properties, new Authenticator() {
 			@Override
