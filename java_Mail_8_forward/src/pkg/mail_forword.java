@@ -69,6 +69,14 @@ public class mail_forword
 		message.setSubject("Forword");
 		message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(Emailadd));
 		
+		BodyPart bodyPart=new MimeBodyPart();
+		bodyPart.setText("Hii Body Part 1");
+		
+		MimeMultipart mimeMultipart=new MimeMultipart();
+		mimeMultipart.addBodyPart(bodyPart);
+		
+		message.setContent(mimeMultipart);
+		
 		Transport.send(message);
 		System.out.println("Forword mail successful");
 		
